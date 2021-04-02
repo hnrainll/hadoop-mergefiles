@@ -19,17 +19,17 @@ import java.io.IOException;
  */
 public class CombineMergeTextInputFormat extends CombineFileInputFormat<LongWritable, Text> {
 
-  @Override
-  public RecordReader<LongWritable, Text> createRecordReader(InputSplit split, TaskAttemptContext context) throws IOException {
+    @Override
+    public RecordReader<LongWritable, Text> createRecordReader(InputSplit split, TaskAttemptContext context) throws IOException {
 
-    CombineFileRecordReader<LongWritable, Text> reader =
-            new CombineFileRecordReader<LongWritable, Text>(
-                    (CombineFileSplit) split, context, CombineMergeTextRecordReader.class);
-    return reader;
-  }
+        CombineFileRecordReader<LongWritable, Text> reader =
+                new CombineFileRecordReader<LongWritable, Text>(
+                        (CombineFileSplit) split, context, CombineMergeTextRecordReader.class);
+        return reader;
+    }
 
-  @Override
-  protected boolean isSplitable(JobContext context, Path file) {
-    return false;
-  }
+    @Override
+    protected boolean isSplitable(JobContext context, Path file) {
+        return false;
+    }
 }

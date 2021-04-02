@@ -1,15 +1,18 @@
 package com.jd.bdp.hdfs;
 
-import com.jd.bdp.hdfs.mergefiles.*;
+import com.jd.bdp.hdfs.mergefiles.MergeTask;
+import com.jd.bdp.hdfs.mergefiles.Task;
 
 /**
  * Created by wubiao on 1/21/16.
  */
 public class MergeSmallFileMain {
-  public static void main(String[] args) throws Exception {
-    Task mergeTask = new MergeTask();
-    mergeTask.init(args);
-    mergeTask.run();
-    mergeTask.close();
-  }
+
+    public static void main(String[] args) throws Exception {
+        Task mergeTask = new MergeTask();
+        mergeTask.init(args);
+        mergeTask.run();
+        mergeTask.close();
+    }
+
 }

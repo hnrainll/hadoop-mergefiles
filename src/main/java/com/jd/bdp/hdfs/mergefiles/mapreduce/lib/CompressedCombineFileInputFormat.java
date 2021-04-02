@@ -18,23 +18,25 @@ import java.io.IOException;
 public class CompressedCombineFileInputFormat
         extends CombineFileInputFormat<CompressedCombineFileWritable, Text> {
 
-  public CompressedCombineFileInputFormat() {
-    super();
+    public CompressedCombineFileInputFormat() {
+        super();
 
-  }
+    }
 
-  public RecordReader<CompressedCombineFileWritable, Text>
-  createRecordReader(InputSplit split,
-                     TaskAttemptContext context) throws IOException {
-    return new
-            CombineFileRecordReader<CompressedCombineFileWritable,
-                    Text>((CombineFileSplit) split, context,
-            CompressedCombineFileRecordReader.class);
-  }
+    public RecordReader<CompressedCombineFileWritable, Text>
+    createRecordReader(InputSplit split,
+                       TaskAttemptContext context) throws IOException {
+        return new
+                CombineFileRecordReader<CompressedCombineFileWritable, Text>(
+                (CombineFileSplit) split,
+                context,
+                CompressedCombineFileRecordReader.class
+        );
+    }
 
-  @Override
-  protected boolean isSplitable(JobContext context, Path file) {
-    return false;
-  }
+    @Override
+    protected boolean isSplitable(JobContext context, Path file) {
+        return false;
+    }
 
 }

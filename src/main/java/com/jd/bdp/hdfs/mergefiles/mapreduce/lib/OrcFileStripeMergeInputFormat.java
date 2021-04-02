@@ -15,16 +15,16 @@ import java.io.IOException;
  */
 public class OrcFileStripeMergeInputFormat extends MergeFileInputFormat {
 
-  @Override
-  public RecordReader<OrcFileKeyWrapper, OrcFileValueWrapper> getRecordReader(
-          InputSplit split, JobConf job, Reporter reporter) throws IOException {
+    @Override
+    public RecordReader<OrcFileKeyWrapper, OrcFileValueWrapper> getRecordReader(
+            InputSplit split, JobConf job, Reporter reporter) throws IOException {
 
-    reporter.setStatus(split.toString());
-    return new OrcFileStripeMergeRecordReader(job, (FileSplit) split);
-  }
+        reporter.setStatus(split.toString());
+        return new OrcFileStripeMergeRecordReader(job, (FileSplit) split);
+    }
 
-  @Override
-  protected boolean isSplitable(FileSystem fs, Path filename) {
-    return false;
-  }
+    @Override
+    protected boolean isSplitable(FileSystem fs, Path filename) {
+        return false;
+    }
 }

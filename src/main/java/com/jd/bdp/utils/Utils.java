@@ -18,86 +18,86 @@ import java.util.GregorianCalendar;
  */
 public class Utils {
 
-  public static String USER = System.getenv("HADOOP_USER_NAME");
+    public static String USER = System.getenv("HADOOP_USER_NAME");
 
-  static {
-    if (StringUtils.isEmpty(USER)) {
-      USER = System.getenv("USER");
-      if (StringUtils.isEmpty(USER)) {
-        USER = System.getProperty("user.name");
+    static {
         if (StringUtils.isEmpty(USER)) {
-          try {
-            USER = UserGroupInformation.getCurrentUser().getUserName();
-          } catch (IOException e) {
-            System.err.println(ExceptionUtils.getFullStackTrace(e));
-            System.exit(-1);
-          }
+            USER = System.getenv("USER");
+            if (StringUtils.isEmpty(USER)) {
+                USER = System.getProperty("user.name");
+                if (StringUtils.isEmpty(USER)) {
+                    try {
+                        USER = UserGroupInformation.getCurrentUser().getUserName();
+                    } catch (IOException e) {
+                        System.err.println(ExceptionUtils.getFullStackTrace(e));
+                        System.exit(-1);
+                    }
+                }
+            }
         }
-      }
-    }
-  }
-
-  public static String makeMergeId(String path) {
-    GregorianCalendar gc = new GregorianCalendar();
-    return USER
-            + "_"
-            + String.format("%1$4d%2$02d%3$02d%4$02d%5$02d%6$02d", gc
-            .get(Calendar.YEAR), gc.get(Calendar.MONTH) + 1, gc
-            .get(Calendar.DAY_OF_MONTH), gc.get(Calendar.HOUR_OF_DAY), gc
-            .get(Calendar.MINUTE), gc.get(Calendar.SECOND))
-            + "_"
-            + MD5Hash.digest(path);
-  }
-
-  public static String ts() {
-    GregorianCalendar gc = new GregorianCalendar();
-    return String.format("%1$4d%2$02d%3$02d%4$02d%5$02d%6$02d", gc
-            .get(Calendar.YEAR), gc.get(Calendar.MONTH) + 1, gc
-            .get(Calendar.DAY_OF_MONTH), gc.get(Calendar.HOUR_OF_DAY), gc
-            .get(Calendar.MINUTE), gc.get(Calendar.SECOND));
-  }
-
-  public static String dt() {
-    GregorianCalendar gc = new GregorianCalendar();
-    return String.format("%1$4d%2$02d%3$02d", gc
-            .get(Calendar.YEAR), gc.get(Calendar.MONTH) + 1, gc
-            .get(Calendar.DAY_OF_MONTH), gc.get(Calendar.HOUR_OF_DAY), gc
-            .get(Calendar.MINUTE));
-  }
-
-  public static String cutPrefix(String string, String prefix) {
-    if (string.startsWith(prefix)) {
-      string = string.substring(prefix.length());
     }
 
-    return string;
-  }
-
-  public static String cutSuffix(String string, String suffix) {
-    if (string.endsWith(suffix)) {
-      string = string.substring(0, string.length() - suffix.length());
+    public static String makeMergeId(String path) {
+        GregorianCalendar gc = new GregorianCalendar();
+        return USER
+                + "_"
+                + String.format("%1$4d%2$02d%3$02d%4$02d%5$02d%6$02d", gc
+                .get(Calendar.YEAR), gc.get(Calendar.MONTH) + 1, gc
+                .get(Calendar.DAY_OF_MONTH), gc.get(Calendar.HOUR_OF_DAY), gc
+                .get(Calendar.MINUTE), gc.get(Calendar.SECOND))
+                + "_"
+                + MD5Hash.digest(path);
     }
 
-    return string;
-  }
-
-  public static FileType getFileType(Path path, FileSystem fs) throws IOException {
-    if (path.getName().endsWith(".lzo")) {
-      return FileType.LZO;
-    } else if (path.getName().endsWith(".lzo.index")) {
-      return FileType.LZO_INDEX;
-    } else if (path.getName().endsWith(".orc")) {
-      return FileType.ORC;
-    } else if (path.getName().endsWith(".avro")) {
-      return FileType.AVRO;
+    public static String ts() {
+        GregorianCalendar gc = new GregorianCalendar();
+        return String.format("%1$4d%2$02d%3$02d%4$02d%5$02d%6$02d", gc
+                .get(Calendar.YEAR), gc.get(Calendar.MONTH) + 1, gc
+                .get(Calendar.DAY_OF_MONTH), gc.get(Calendar.HOUR_OF_DAY), gc
+                .get(Calendar.MINUTE), gc.get(Calendar.SECOND));
     }
-    // read file header
-    // FSDataInputStream in = fs.open(path);
 
-
-    if (Config.isWantNoneTypeToText()) {
-      return FileType.TEXT;
+    public static String dt() {
+        GregorianCalendar gc = new GregorianCalendar();
+        return String.format("%1$4d%2$02d%3$02d", gc
+                .get(Calendar.YEAR), gc.get(Calendar.MONTH) + 1, gc
+                .get(Calendar.DAY_OF_MONTH), gc.get(Calendar.HOUR_OF_DAY), gc
+                .get(Calendar.MINUTE));
     }
-    return FileType.UNKNOWN;
-  }
+
+    public static String cutPrefix(String string, String prefix) {
+        if (string.startsWith(prefix)) {
+            string = string.substring(prefix.length());
+        }
+
+        return string;
+    }
+
+    public static String cutSuffix(String string, String suffix) {
+        if (string.endsWith(suffix)) {
+            string = string.substring(0, string.length() - suffix.length());
+        }
+
+        return string;
+    }
+
+    public static FileType getFileType(Path path, FileSystem fs) throws IOException {
+        if (path.getName().endsWith(".lzo")) {
+            return FileType.LZO;
+        } else if (path.getName().endsWith(".lzo.index")) {
+            return FileType.LZO_INDEX;
+        } else if (path.getName().endsWith(".orc")) {
+            return FileType.ORC;
+        } else if (path.getName().endsWith(".avro")) {
+            return FileType.AVRO;
+        }
+        // read file header
+        // FSDataInputStream in = fs.open(path);
+
+
+        if (Config.isWantNoneTypeToText()) {
+            return FileType.TEXT;
+        }
+        return FileType.UNKNOWN;
+    }
 }

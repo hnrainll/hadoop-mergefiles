@@ -17,14 +17,14 @@ import java.io.IOException;
  */
 public class CombineMergeOrcInputFormat extends CombineFileInputFormat {
 
-  public CombineMergeOrcInputFormat() {
-  }
+    public CombineMergeOrcInputFormat() {
+    }
 
-  @Override
-  public RecordReader<OrcFileKeyWrapper, OrcFileValueWrapper> getRecordReader(InputSplit inputSplit,
-                                      JobConf jobConf, Reporter reporter) throws IOException {
-    CombineFileSplit cfSplit = (CombineFileSplit) inputSplit;
-    return new CombineFileRecordReader(jobConf, cfSplit, reporter, CombineMergeOrcRecordReader.class);
-  }
+    @Override
+    public RecordReader<OrcFileKeyWrapper, OrcFileValueWrapper> getRecordReader(InputSplit inputSplit,
+                                                                                JobConf jobConf, Reporter reporter) throws IOException {
+        CombineFileSplit cfSplit = (CombineFileSplit) inputSplit;
+        return new CombineFileRecordReader(jobConf, cfSplit, reporter, CombineMergeOrcRecordReader.class);
+    }
 
 }

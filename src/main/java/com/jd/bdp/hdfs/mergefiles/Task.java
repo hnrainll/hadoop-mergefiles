@@ -5,9 +5,9 @@ package com.jd.bdp.hdfs.mergefiles;
  */
 public interface Task {
 
-  void init(String[] args) throws Exception;
+    void init(String[] args) throws Exception;
 
-  int run() throws Exception;
+    int run() throws Exception;
 
-  void close() throws Exception;
+    void close() throws Exception;
 }

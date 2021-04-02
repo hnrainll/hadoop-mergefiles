@@ -17,39 +17,39 @@ import java.io.IOException;
  */
 public class CombineMergeTextRecordReader extends RecordReader<LongWritable, Text> {
 
-  private LineRecordReader lineRecordReader = new LineRecordReader();
+    private LineRecordReader lineRecordReader = new LineRecordReader();
 
-  public CombineMergeTextRecordReader(CombineFileSplit split, TaskAttemptContext context, Integer index) throws IOException {
-    FileSplit fileSplit = new FileSplit(split.getPath(index), split.getOffset(index), split.getLength(index), split.getLocations());
-    lineRecordReader.initialize(fileSplit, context);
-  }
+    public CombineMergeTextRecordReader(CombineFileSplit split, TaskAttemptContext context, Integer index) throws IOException {
+        FileSplit fileSplit = new FileSplit(split.getPath(index), split.getOffset(index), split.getLength(index), split.getLocations());
+        lineRecordReader.initialize(fileSplit, context);
+    }
 
-  @Override
-  public void initialize(InputSplit split, TaskAttemptContext context) throws IOException, InterruptedException {
-  }
+    @Override
+    public void initialize(InputSplit split, TaskAttemptContext context) throws IOException, InterruptedException {
+    }
 
-  @Override
-  public LongWritable getCurrentKey() throws IOException, InterruptedException {
-    return lineRecordReader.getCurrentKey();
-  }
+    @Override
+    public LongWritable getCurrentKey() throws IOException, InterruptedException {
+        return lineRecordReader.getCurrentKey();
+    }
 
-  @Override
-  public Text getCurrentValue() throws IOException, InterruptedException {
-    return lineRecordReader.getCurrentValue();
-  }
+    @Override
+    public Text getCurrentValue() throws IOException, InterruptedException {
+        return lineRecordReader.getCurrentValue();
+    }
 
-  @Override
-  public boolean nextKeyValue() throws IOException, InterruptedException {
-    return lineRecordReader.nextKeyValue();
-  }
+    @Override
+    public boolean nextKeyValue() throws IOException, InterruptedException {
+        return lineRecordReader.nextKeyValue();
+    }
 
-  @Override
-  public float getProgress() throws IOException {
-    return lineRecordReader.getProgress();
-  }
+    @Override
+    public float getProgress() throws IOException {
+        return lineRecordReader.getProgress();
+    }
 
-  @Override
-  public void close() throws IOException {
-    lineRecordReader.close();
-  }
+    @Override
+    public void close() throws IOException {
+        lineRecordReader.close();
+    }
 }

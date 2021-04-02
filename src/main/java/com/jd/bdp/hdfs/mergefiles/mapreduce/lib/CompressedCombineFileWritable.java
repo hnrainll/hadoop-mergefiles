@@ -15,62 +15,62 @@ import java.io.IOException;
 @SuppressWarnings("rawtypes")
 public class CompressedCombineFileWritable implements WritableComparable {
 
-  public long offset;
-  public String fileName;
+    public long offset;
+    public String fileName;
 
 
-  public CompressedCombineFileWritable() {
-    super();
-  }
-
-  public CompressedCombineFileWritable(long offset, String fileName) {
-    super();
-    this.offset = offset;
-    this.fileName = fileName;
-  }
-
-  public void readFields(DataInput in) throws IOException {
-    this.offset = in.readLong();
-    this.fileName = Text.readString(in);
-  }
-
-  public void write(DataOutput out) throws IOException {
-    out.writeLong(offset);
-    Text.writeString(out, fileName);
-  }
-
-
-  public int compareTo(Object o) {
-    CompressedCombineFileWritable that = (CompressedCombineFileWritable) o;
-
-    int f = this.fileName.compareTo(that.fileName);
-    if (f == 0) {
-      return (int) Math.signum((double) (this.offset - that.offset));
+    public CompressedCombineFileWritable() {
+        super();
     }
-    return f;
-  }
 
-  @Override
-  public boolean equals(Object obj) {
-    if (obj instanceof CompressedCombineFileWritable)
-      return this.compareTo(obj) == 0;
-    return false;
-  }
+    public CompressedCombineFileWritable(long offset, String fileName) {
+        super();
+        this.offset = offset;
+        this.fileName = fileName;
+    }
 
-  @Override
-  public int hashCode() {
+    public void readFields(DataInput in) throws IOException {
+        this.offset = in.readLong();
+        this.fileName = Text.readString(in);
+    }
 
-    final int hashPrime = 47;
-    int hash = 13;
-    hash = hashPrime * hash + (this.fileName != null ? this.fileName.hashCode() : 0);
-    hash = hashPrime * hash + (int) (this.offset ^ (this.offset >>> 16));
+    public void write(DataOutput out) throws IOException {
+        out.writeLong(offset);
+        Text.writeString(out, fileName);
+    }
 
-    return hash;
-  }
 
-  @Override
-  public String toString() {
-    return this.fileName + "-" + this.offset;
-  }
+    public int compareTo(Object o) {
+        CompressedCombineFileWritable that = (CompressedCombineFileWritable) o;
+
+        int f = this.fileName.compareTo(that.fileName);
+        if (f == 0) {
+            return (int) Math.signum((double) (this.offset - that.offset));
+        }
+        return f;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof CompressedCombineFileWritable)
+            return this.compareTo(obj) == 0;
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+
+        final int hashPrime = 47;
+        int hash = 13;
+        hash = hashPrime * hash + (this.fileName != null ? this.fileName.hashCode() : 0);
+        hash = hashPrime * hash + (int) (this.offset ^ (this.offset >>> 16));
+
+        return hash;
+    }
+
+    @Override
+    public String toString() {
+        return this.fileName + "-" + this.offset;
+    }
 
 }

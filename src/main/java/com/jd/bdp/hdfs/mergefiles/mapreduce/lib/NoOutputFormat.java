@@ -14,24 +14,24 @@ import java.io.IOException;
 /**
  * Created by wubiao on 3/25/16.
  */
-public class NoOutputFormat<K extends WritableComparable<K>, V extends Writable>
-        implements OutputFormat<K, V> {
-  //no records will be emited from Hive
-  @Override
-  public RecordWriter<K, V> getRecordWriter(FileSystem ignored, JobConf job, String name,
-                                            Progressable progress) {
-    return new RecordWriter<K, V>() {
-      public void write(K key, V value) {
-        throw new RuntimeException("Should not be called");
-      }
+public class NoOutputFormat<K extends WritableComparable<K>, V extends Writable> implements OutputFormat<K, V> {
 
-      public void close(Reporter reporter) {
-      }
-    };
-  }
+    //no records will be emited from Hive
+    @Override
+    public RecordWriter<K, V> getRecordWriter(FileSystem ignored, JobConf job, String name,
+                                              Progressable progress) {
+        return new RecordWriter<K, V>() {
+            public void write(K key, V value) {
+                throw new RuntimeException("Should not be called");
+            }
 
-  @Override
-  public void checkOutputSpecs(FileSystem fileSystem, JobConf jobConf) throws IOException {
+            public void close(Reporter reporter) {
+            }
+        };
+    }
 
-  }
+    @Override
+    public void checkOutputSpecs(FileSystem fileSystem, JobConf jobConf) throws IOException {
+
+    }
 }

@@ -11,9 +11,11 @@ import java.io.IOException;
  * Created by wubiao on 1/20/16.
  */
 public class MergeFilesMapper extends Mapper<Object, Text, NullWritable, Text> {
-  @Override
-  protected void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-    context.write(NullWritable.get(), value);
-  }
+
+    @Override
+    protected void map(Object key, Text value, Context context) throws IOException, InterruptedException {
+        context.write(NullWritable.get(), value);
+    }
+
 }
 
