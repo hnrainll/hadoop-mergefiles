@@ -29,3 +29,4 @@ hcatalog/webhcat/svr/target
 conf/hive-default.xml.template
 .DS_Store
 *.jar
+/out/
